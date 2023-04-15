@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 import joblib
 import pandas as pd
+import os
 
 app = Flask(__name__)
 
@@ -97,4 +98,7 @@ def extract_feature_data(query_args):
 if __name__ == "__main__":
     model = joblib.load('loan_default_final_model.pkl')
     col_names = joblib.load('loan_default_col_names.pkl')
-    app.run(debug=True)  # TODO: set debug=False before deployment
+    # Heroku will set the PORT environment variable for web traffic
+    port = os.environ.get('PORT', 5000)
+    # set debug=False before deployment
+    app.run(debug=False, host='0.0.0.0', port=port)
