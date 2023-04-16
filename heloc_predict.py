@@ -25,15 +25,15 @@ def predict():
 
     # Predict
     try:
-        prediction = list(model.predict(df))
+        prediction = model.predict(df)
     except:
         prediction = None
 
     # Return the prediction as a json response
     if prediction is not None:
-        return jsonify({'prediction': str(prediction)})
+        return jsonify({'prediction': str(prediction)}), 200
     else:
-        return jsonify({'error': 'Oops! Something went wrong!'})
+        return jsonify({'error': 'Oops! Something went wrong!'}), 400
 
 
 def extract_feature_data(query_args):
