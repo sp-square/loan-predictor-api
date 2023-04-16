@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import joblib
 import pandas as pd
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
@@ -29,9 +31,9 @@ def predict():
 
     # Return the prediction as a json response
     if prediction is not None:
-        return jsonify({'prediction': str(prediction)}), 200
+        return jsonify({'prediction': str(prediction)})
     else:
-        return jsonify({'error': 'Oops! Something went wrong!'}), 400
+        return jsonify({'error': 'Oops! Something went wrong!'})
 
 
 def extract_feature_data(query_args):
